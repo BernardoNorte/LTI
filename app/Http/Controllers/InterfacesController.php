@@ -7,15 +7,47 @@ use Illuminate\Support\Facades\Http;
 
 class InterfacesController extends Controller
 {
+    
+    
     public function index()
     {
-        $response = Http::get('http://10.20.139.25/rest/interface');
+        try {
+            $routerIp = env('ROUTER_IP');
+            $response = Http::withBasicAuth('admin', 'ltipassword')->get('http://' . $routerIp . '/rest/interface');
+            
+            if ($response->successful()) {
+                
+                $interfaces = $response->json();
+                
+                return view('interfaces.index', compact('interfaces'));
+            } else {
+                
+                return response()->json(['error' => 'Falha ao obter as interfaces'], $response->status());
+            }
+        } catch (\Exception $e) {
+            
+            return response()->json(['error' => 'Falha ao conectar ao dispositivo'], 500);
+        }
+    }
 
-        if ($response->successful()) {
-            $interfaces = $response->json();
-            return view('interfaces', compact('interfaces'));
-        } else {
-            return response()->json(['error' => 'Falha ao obter as interfaces'], $response->status());
+    public function indexWireless()
+    {
+        try {
+            $routerIp = env('ROUTER_IP');
+            $response = Http::withBasicAuth('admin', 'ltipassword')->get('http://' . $routerIp . '/rest/interface/wireless');
+            
+            if ($response->successful()) {
+                
+                $interfaces = $response->json();
+                
+                return view('interfaces.wireless', compact('interfaces'));
+            } else {
+                
+                return response()->json(['error' => 'Falha ao obter as interfaces'], $response->status());
+            }
+        } catch (\Exception $e) {
+            
+            return response()->json(['error' => 'Falha ao conectar ao dispositivo'], 500);
         }
     }
 
