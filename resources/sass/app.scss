@@ -9,3 +9,58 @@
 
 // SBAdmin Template
 @import 'sb-admin';
+
+#layoutSidenav {
+    display: flex;
+}
+
+#layoutSidenav_nav {
+    width: 250px; /* largura fixa da sidebar */
+}
+
+#layoutSidenav_content {
+    flex: 1; /* o conteúdo principal ocupa todo o espaço restante */
+    margin-left: 250px; /* ajuste o valor para corresponder à largura da sidebar */
+}
+
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+}
+
+.table th,
+.table td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+    background-color: #343a40;
+    color: #fff;
+}
+
+.table tbody + tbody {
+    border-top: 2px solid #dee2e6;
+}
+
+.table .table {
+    background-color: #fff;
+}
+
+.table-bordered {
+    border: 1px solid #dee2e6;
+}
+
+.table-bordered th,
+.table-bordered td {
+    border: 1px solid #dee2e6;
+}
+
+
+
+
+
