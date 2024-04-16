@@ -3,7 +3,7 @@
 @section('main')
     <h2>Dados da Interface</h2>
     <div class="text-end mb-3">
-        <a href="" class="btn btn-primary">Adicionar</a>
+        <a href="" class="btn btn-primary">Add</a>
     </div>
     <table class="table">
         <thead>
@@ -13,7 +13,7 @@
                 <th scope="col">MAC</th>
                 <th scope="col">Protocol</th>
                 
-                <th scope="col">Ações</th>
+                <th scope="col">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -25,11 +25,11 @@
                     <td>{{ $interface['protocol-mode'] }}</td>
                     
                     <td>
-                        <a href="" class="btn btn-sm btn-primary">Editar</a>
+                        <a href="" class="btn btn-sm btn-primary">Edit</a>
                         <form action="" method="POST" class="d-inline">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir?')">Remover</button>
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir?')">Delete</button>
                         </form>
                     </td>
                 </tr>

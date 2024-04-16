@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
 
 class InterfacesController extends Controller
 {
@@ -12,11 +13,10 @@ class InterfacesController extends Controller
     public function index()
     {
         try {
-            $routerIp = env('ROUTER_IP');
+            $routerIp = Session::get('router_ip');
             $response = Http::withBasicAuth('admin', 'ltipassword')->get('http://' . $routerIp . '/rest/interface');
             
             if ($response->successful()) {
-                
                 $interfaces = $response->json();
                 
                 return view('interfaces.index', compact('interfaces'));
@@ -33,7 +33,7 @@ class InterfacesController extends Controller
     public function indexWireless()
     {
         try {
-            $routerIp = env('ROUTER_IP');
+            $routerIp =  $routerIp = Session::get('router_ip');
             $response = Http::withBasicAuth('admin', 'ltipassword')->get('http://' . $routerIp . '/rest/interface/wireless');
             
             if ($response->successful()) {

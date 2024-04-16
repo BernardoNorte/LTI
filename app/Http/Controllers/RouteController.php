@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
 
 class RouteController extends Controller
 {
     public function index()
     {
         try {
-            $routerIp = env('ROUTER_IP');
+            $routerIp = Session::get('router_ip');;
             $response = Http::withBasicAuth('admin', 'ltipassword')->get('http://' . $routerIp . '/rest/ip/route');
             
             if ($response->successful()) {
