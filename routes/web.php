@@ -17,7 +17,9 @@ Route::get('interfaces/bridge', [BridgeController::class, 'index'])->name('inter
 Route::get('routes/static', [RouteController::class, 'index'])->name('routes/static');
 Route::view('teste', 'layout');
 Route::post('update-router-ip/{newIp}', [Controller::class, 'updateRouterIp'])->name('update_router_ip');
-
+Route::get('interfaces/bridge/create', [BridgeController::class, 'create'])->name('bridge.create');
+Route::post('interfaces/bridge/create', [BridgeController::class, 'store'])->name('bridge.store');
+Route::delete('interfaces/bridge/{id}', [BridgeController::class, 'deleteBridge'])->name('bridge.delete');
 Auth::routes();
 
 Route::get('neighbors', [NeighborController::class, 'index'])->name('neighbors');
