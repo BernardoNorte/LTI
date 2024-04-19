@@ -52,11 +52,7 @@
                         <!-- Fim das Rotas -->
                     </div>
                 </div>
-                <!-- Sidebar Footer -->
-                <div class="sb-sidenav-footer">
-                    <div class="small">Logged in as:</div>
-                    Username
-                </div>
+                
             </nav>
         </div>
     </div>

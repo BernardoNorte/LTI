@@ -11,43 +11,43 @@ use Illuminate\View\View;
 class BridgeController extends Controller
 {
     public function index()
-{
-    try {
-        $routerIp = Session::get('router_ip');
-        
-        
-        $response = Http::withBasicAuth('admin', 'ltipassword')->get('http://' . $routerIp . '/rest/interface/bridge');
-        $interfaces = $response->json();
-
-        
-        $responseWithPort = Http::withBasicAuth('admin', 'ltipassword')->get('http://' . $routerIp . '/rest/interface/bridge/port');
-        $ports = $responseWithPort->json();
-        
-        
-        $interfacesWithPorts = [];
-        foreach ($interfaces as $interface) {
-            $interfaceName = $interface['name'];
-            $interfacePorts = [];
+    {
+        try {
+            $routerIp = Session::get('router_ip');
+            
+            
+            $response = Http::withBasicAuth('admin', 'ltipassword')->get('http://' . $routerIp . '/rest/interface/bridge');
+            $interfaces = $response->json();
 
             
-            foreach ($ports as $port) {
-                if ($port['bridge'] === $interfaceName) {
-                    $interfacePorts[] = $port;
+            $responseWithPort = Http::withBasicAuth('admin', 'ltipassword')->get('http://' . $routerIp . '/rest/interface/bridge/port');
+            $ports = $responseWithPort->json();
+            
+            
+            $interfacesWithPorts = [];
+            foreach ($interfaces as $interface) {
+                $interfaceName = $interface['name'];
+                $interfacePorts = [];
+
+                
+                foreach ($ports as $port) {
+                    if ($port['bridge'] === $interfaceName) {
+                        $interfacePorts[] = $port;
+                    }
                 }
+
+                
+                $interfacesWithPorts[] = [
+                    'interface' => $interface,
+                    'ports' => $interfacePorts
+                ];
             }
 
-            
-            $interfacesWithPorts[] = [
-                'interface' => $interface,
-                'ports' => $interfacePorts
-            ];
+            return view('bridge.index', compact('interfacesWithPorts'));
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Falha ao conectar ao dispositivo'], 500);
         }
-
-        return view('bridge.index', compact('interfacesWithPorts'));
-    } catch (\Exception $e) {
-        return response()->json(['error' => 'Falha ao conectar ao dispositivo'], 500);
     }
-}
 
 
     public function create(): View
@@ -60,66 +60,72 @@ class BridgeController extends Controller
     try {
         $routerIp = Session::get('router_ip');
 
-        // Dados validados do formulário
         $validatedData = $request->validate([
             'name' => 'required|string',
-            'arp' => 'required|string', 
+            'arp' => 'required|string',
+            'ageing-time' => 'required|regex:/^\d{2}:\d{2}:\d{2}$/',
+            'fast-forward' => 'nullable:boolean',
+            'igmp-snooping' => 'nullable:boolean',
+            'dhcp-snooping' => 'nullable:boolean',
+            'dhcp-snooping82' => 'nullable:boolean',
         ]);
 
-        // Valores padrão
+        // Defina o valor padrão de 'fast-forward' apenas se estiver presente nos dados validados
         $defaultValues = [
             "arp-timeout" => "auto",
             "auto-mac" => "true",
             "comment" => "defconf",
             "disabled" => "false",
-            "fast-forward" => "true",
             "forward-delay" => "15s",
-            "igmp-snooping" => "false",
             "max-message-age" => "20s",
             "port-cost-mode" => "long",
             "priority" => "0x8000",
-            "protocol-mode" => "rstp"
+            "protocol-mode" => "rstp",
+            "fast-forward" => "false",
         ];
 
-        // Mescla os dados validados com os valores padrão
-        $formData = array_merge($defaultValues, $validatedData);
+        // Verifica se 'fast-forward' está presente nos dados validados
+        if (isset($validatedData['fast-forward'])) {
+            unset($defaultValues["fast-forward"]);
+        }
 
-        // Faça a solicitação POST usando o Laravel HTTP Client
+        // Mesclar os valores padrão com os dados validados
+        $formData = array_merge($defaultValues, $validatedData);
+        
         $response = Http::withBasicAuth('admin', 'ltipassword')
             ->post('http://' . $routerIp . '/rest/interface/bridge/add', $formData);
 
-        // Verifique se a solicitação foi bem-sucedida
         if ($response->successful()) {
             return back();
-        } else {
-            // Lida com erros de solicitação mal sucedida
-            return back()->withErrors(['error' => 'Erro ao processar o pedido. Por favor, tente novamente.']);
+        } else if ($response->status() === 400 && $response['detail'] === "failure: already have interface with such name") {
+            return back()->withErrors(['error' => 'Name already in use.']);
         }
     } catch (\Exception $e) {
-        // Lida com exceções durante a solicitação
-        return back()->withErrors(['error' => 'Erro ao conectar ao dispositivo.']);
+        return back()->withErrors(['error' => 'Error connecting to the device.']);
     }
 }
+
+    
 
 
 
     public function deleteBridge($id)
-{
-    try {
-        $routerIp = Session::get('router_ip');
-        // Use o endpoint correto para excluir a interface com o ID fornecido
-        $response = Http::withBasicAuth('admin', 'ltipassword')->delete('http://' . $routerIp . '/rest/interface/bridge/' . $id);
+    {
+        try {
+            $routerIp = Session::get('router_ip');
+            
+            $response = Http::withBasicAuth('admin', 'ltipassword')->delete('http://' . $routerIp . '/rest/interface/bridge/' . $id);
 
-        // Verifique se a solicitação foi bem-sucedida
-        if ($response->successful()) {
-            // Lógica adicional se necessário
-            return back()->with('success', 'Interface bridge excluída com sucesso!');
-        } else {
-            return back()->withErrors(['error' => 'Erro ao processar o pedido. Por favor, tente novamente.']);
+            
+            if ($response->successful()) {
+                
+                return back()->with('success', 'Interface bridge excluída com sucesso!');
+            } else {
+                return back()->withErrors(['error' => 'Erro ao processar o pedido. Por favor, tente novamente.']);
+            }
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => 'Erro ao conectar ao dispositivo.']);
         }
-    } catch (\Exception $e) {
-        return back()->withErrors(['error' => 'Erro ao conectar ao dispositivo.']);
     }
-}
 
 }

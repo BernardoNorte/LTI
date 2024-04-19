@@ -15,6 +15,7 @@
                 <th scope="col">Interface</th>
                 <th scope="col">Port Number</th>
                 <th scope="col">Actions</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
