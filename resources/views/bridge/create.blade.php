@@ -25,9 +25,9 @@
 
         <div class="form-group">
             <label for="arp" >ARP Option</label>
-            <select class="form-control form-control-sm input-text form-select" name="arp_option" id="arp">
+            <select class="form-control form-control-sm input-text form-select" name="arp" id="arp">
                 <option value="disabled" >Disabled</option>
-                <option selected value="enabled" >Enabled</option>
+                <option selected value="enable" >Enable</option>
                 <option value="local-proxy-arp" >Local Proxy ARP</option>
                 <option value="proxy-amp" >Proxy AMP</option>
                 <option value="reply-only" >Reply Only</option>

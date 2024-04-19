@@ -60,11 +60,13 @@ class BridgeController extends Controller
     try {
         $routerIp = Session::get('router_ip');
 
+        // Dados validados do formulário
         $validatedData = $request->validate([
             'name' => 'required|string',
-            'arp_option' => 'required|string', 
+            'arp' => 'required|string', 
         ]);
 
+        // Valores padrão
         $defaultValues = [
             "arp-timeout" => "auto",
             "auto-mac" => "true",
@@ -79,7 +81,7 @@ class BridgeController extends Controller
             "protocol-mode" => "rstp"
         ];
 
-        // Merge os valores padrão com os dados validados do formulário
+        // Mescla os dados validados com os valores padrão
         $formData = array_merge($defaultValues, $validatedData);
 
         // Faça a solicitação POST usando o Laravel HTTP Client
@@ -98,6 +100,7 @@ class BridgeController extends Controller
         return back()->withErrors(['error' => 'Erro ao conectar ao dispositivo.']);
     }
 }
+
 
 
     public function deleteBridge($id)
