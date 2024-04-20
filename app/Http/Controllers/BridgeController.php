@@ -70,7 +70,7 @@ class BridgeController extends Controller
             'dhcp-snooping82' => 'nullable:boolean',
         ]);
 
-        // Defina o valor padrão de 'fast-forward' apenas se estiver presente nos dados validados
+        
         $defaultValues = [
             "arp-timeout" => "auto",
             "auto-mac" => "true",
@@ -84,12 +84,12 @@ class BridgeController extends Controller
             "fast-forward" => "false",
         ];
 
-        // Verifica se 'fast-forward' está presente nos dados validados
+        
         if (isset($validatedData['fast-forward'])) {
             unset($defaultValues["fast-forward"]);
         }
 
-        // Mesclar os valores padrão com os dados validados
+        
         $formData = array_merge($defaultValues, $validatedData);
         
         $response = Http::withBasicAuth('admin', 'ltipassword')
@@ -105,27 +105,85 @@ class BridgeController extends Controller
     }
 }
 
-    
 
 
 
-    public function deleteBridge($id)
-    {
-        try {
-            $routerIp = Session::get('router_ip');
+
+public function edit($id): View
+{
+    try {
+        $routerIp = Session::get('router_ip');
+
+        $response = Http::withBasicAuth('admin', 'ltipassword')->get('http://' . $routerIp . '/rest/interface/bridge/' . $id);
+        
+        if ($response->successful()) {
             
-            $response = Http::withBasicAuth('admin', 'ltipassword')->delete('http://' . $routerIp . '/rest/interface/bridge/' . $id);
-
+            $bridge = $response->json();
             
-            if ($response->successful()) {
-                
-                return back()->with('success', 'Interface bridge excluída com sucesso!');
-            } else {
-                return back()->withErrors(['error' => 'Erro ao processar o pedido. Por favor, tente novamente.']);
-            }
-        } catch (\Exception $e) {
-            return back()->withErrors(['error' => 'Erro ao conectar ao dispositivo.']);
+            return view('bridge.edit', compact('id', 'bridge'));
+        } else {
+            
+            return back()->withErrors(['error' => 'Failed to fetch interface data.']);
         }
+    } catch (\Exception $e) {
+        
+        return back()->withErrors(['error' => 'Error connecting to the device.']);
     }
+}
+
+
+
+
+
+public function updateBridge(Request $request, $id)
+{
+    try {
+        $routerIp = Session::get('router_ip');
+
+        $validatedData = $request->validate([
+            'name' => 'nullable|string',
+            'mtu' => 'nullable|integer',
+            'arp' => 'nullable|string',
+            'ageing-time' => 'nullable|string',
+            'igmp-snooping' => 'nullable|string',
+            'dhcp-snooping' => 'nullable|string',
+            'fast-forward' => 'nullable|string',
+        ]);
+
+        $validatedData['igmp-snooping'] = isset($validatedData['igmp-snooping']) ? 'true' : 'false';
+        $validatedData['dhcp-snooping'] = isset($validatedData['dhcp-snooping']) ? 'true' : 'false';
+        $validatedData['fast-forward'] = isset($validatedData['fast-forward']) ? 'true' : 'false';
+       
+        $response = Http::withBasicAuth('admin', 'ltipassword')
+                        ->patch('http://' . $routerIp . '/rest/interface/bridge/' . $id, $validatedData);
+        
+        if ($response->successful()) {
+            return back()->with('success', 'Interface successfully updated.');
+        } else {
+            return back()->withErrors(['error' => 'Failed to update interface data.']);
+        }
+    } catch (\Exception $e) {
+        return back()->withErrors(['error' => 'Error connecting to the device.']);
+    }
+}
+
+
+public function deleteBridge($id)
+{
+    try {
+        $routerIp = Session::get('router_ip');
+            
+        $response = Http::withBasicAuth('admin', 'ltipassword')->delete('http://' . $routerIp . '/rest/interface/bridge/' . $id);
+            
+        if ($response->successful()) {
+                
+            return back()->with('success', 'Interface bridge excluída com sucesso!');
+        } else {
+            return back()->withErrors(['error' => 'Erro ao processar o pedido. Por favor, tente novamente.']);
+        }
+    } catch (\Exception $e) {
+        return back()->withErrors(['error' => 'Erro ao conectar ao dispositivo.']);
+    }
+}
 
 }

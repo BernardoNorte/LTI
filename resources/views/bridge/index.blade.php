@@ -46,7 +46,7 @@
                         </ul>
                     </td>
                     <td>
-                        <a href="#" class="btn btn-sm btn-primary">Editar</a>
+                        <a href="{{ route('bridge.edit', ['id' => $interface['.id']]) }}" class="btn btn-sm btn-primary">Editar</a>
                         <td>
                         <form method="POST" action="{{ route('bridge.delete', ['id' => $interface['.id']]) }}">
                             @csrf

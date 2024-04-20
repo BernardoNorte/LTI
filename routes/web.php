@@ -20,6 +20,7 @@ Route::post('update-router-ip/{newIp}', [Controller::class, 'updateRouterIp'])->
 Route::get('interfaces/bridge/create', [BridgeController::class, 'create'])->name('bridge.create');
 Route::post('interfaces/bridge/create', [BridgeController::class, 'store'])->name('bridge.store');
 Route::delete('interfaces/bridge/{id}', [BridgeController::class, 'deleteBridge'])->name('bridge.delete');
-Auth::routes();
+Route::patch('interfaces/bridge/{id}', [BridgeController::class,'updateBridge'])->name('bridge.update');
+Route::get('interfaces/bridge/{id}', [BridgeController::class, 'edit'])->name('bridge.edit');
 
 Route::get('neighbors', [NeighborController::class, 'index'])->name('neighbors');
