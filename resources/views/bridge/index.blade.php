@@ -9,7 +9,7 @@
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">Interface Bridge</th>
+                <th scope="col">Bridge Interface</th>
                 <th scope="col">MAC</th>
                 <th scope="col">Protocol</th>
                 <th scope="col">Interface</th>
@@ -46,7 +46,7 @@
                         </ul>
                     </td>
                     <td>
-                        <a href="{{ route('bridge.edit', ['id' => $interface['.id']]) }}" class="btn btn-sm btn-primary">Editar</a>
+                        <a href="{{ route('bridge.edit', ['id' => $interface['.id']]) }}" class="btn btn-sm btn-primary">Edit</a>
                         <td>
                         <form method="POST" action="{{ route('bridge.delete', ['id' => $interface['.id']]) }}">
                             @csrf

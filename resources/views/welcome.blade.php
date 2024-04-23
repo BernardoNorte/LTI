@@ -15,7 +15,7 @@
 </head>
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        <!-- Navbar Brand-->
+        
         <a class="navbar-brand ps-3" href="{{ route('neighbors') }}">Mikrotik Controller</a>
     </nav>
     <div id="layoutSidenav">
@@ -23,7 +23,7 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <!-- Sidebar Navigation Links -->
+                        
                         <div class="sb-sidenav-menu-heading">Interfaces</div>
                         <a class="nav-link" href="{{ route('interfaces') }}">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-cloud"></i></div>
@@ -37,9 +37,7 @@
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-bridge"></i></div>
                             Bridge Interfaces
                         </a>
-                        <!-- End of Sidebar Navigation Links -->
-
-                        <!-- Rotas -->
+                        
                         <div class="sb-sidenav-menu-heading">Routes</div>
                         <a class="nav-link" href="{{ route('routes/static') }}">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-arrows-to-circle"></i></div>
@@ -49,7 +47,11 @@
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-arrows-alt"></i></div>
                             Dynamic Routes
                         </a>
-                        <!-- Fim das Rotas -->
+                        <div class="sb-sidenav-menu-heading">Wireless Security</div>
+                        <a class="nav-link" href="{{ route('security.index') }}">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                            Security Profiles
+                        </a>
                     </div>
                 </div>
                 
@@ -58,7 +60,7 @@
     </div>
 
     <div id="layoutSidenav_content">
-        <!-- Main Content -->
+        
         @yield('main')
     </div>
 

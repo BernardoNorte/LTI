@@ -2,11 +2,15 @@
 
 @section('main')
     <div class="container">
-        <h1>Interfaces Wireless do Dispositivo</h1>
+        <hr>
+        <hr>
+        <hr>
+        <h1>Wireless Interfaces</h1>
+        <hr>
 
         <div class="table-responsive">
-            <table class="table table-bordered table-striped">
-                <thead class="thead-dark">
+            <table class="table">
+                <thead class="thead">
                     <tr>
                         <th>Name</th>
                         <th>Type</th>
