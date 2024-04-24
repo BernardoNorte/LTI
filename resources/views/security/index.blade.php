@@ -34,8 +34,8 @@
                             <td>{{ $profile['authentication-types'] }}</td>
                             <td>{{ $profile['unicast-ciphers'] }}</td>
                             <td>{{ $profile['group-ciphers'] }}</td>
-                            <td>{{ $profile['wpa-pre-shared-key'] }}</td>
-                            <td>{{ $profile['wpa2-pre-shared-key'] }}</td>
+                            <td class="hidetext">{{ $profile['wpa-pre-shared-key'] }}</td>
+                            <td class="hidetext">{{ $profile['wpa2-pre-shared-key'] }}</td>
                             <td>Edit</td>
                             <td>Delete</td>
                             
@@ -46,3 +46,6 @@
         </div>
     </div>
 @endsection
+<style>
+    .hidetext { -webkit-text-security: disc;}
+</style>
