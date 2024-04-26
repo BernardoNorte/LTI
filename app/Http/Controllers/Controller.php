@@ -15,7 +15,7 @@ class Controller extends BaseController
 
     public function __construct()
     {
-        $this->routerIp = "192.168.1.143";
+        $this->routerIp = "192.168.1.78"; //192.168.1.143
         
     }
 

@@ -52,6 +52,21 @@
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-shield-halved"></i></div>
                             Security Profiles
                         </a>
+                        <div class="sb-sidenav-menu-heading">DHCP</div>
+                        <a class="nav-link" href="{{ route('dhcp') }}">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                            DHCP Servers
+                        </a>
+                        <div class="sb-sidenav-menu-heading">Addresses</div>
+                        <a class="nav-link" href="{{ route('addresses') }}">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-cloud"></i></div>
+                            All IP Addresses
+                        </a>
+                        <div class="sb-sidenav-menu-heading">Dns</div>
+                        <a class="nav-link" href="{{ route('dns') }}">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-cloud"></i></div>
+                            Dns Server
+                        </a>
                     </div>
                 </div>
                 <

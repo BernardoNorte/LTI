@@ -18,13 +18,8 @@
                         <th>MAC Address</th>
                         <th>ARP</th>
                         <th>Mode</th>
-                        <th>Band</th>
-                        <th>Channel</th>
                         <th>Frequency</th>
-                        <th>SSID</th>
-                        <th>TX</th>
-                        <th>RX</th>
-                        
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,13 +31,19 @@
                             <td>{{ $interface['mac-address'] }}</td>
                             <td>{{ $interface['arp'] }}</td>
                             <td>{{ $interface['mode'] }}</td>
-                            <td>{{ $interface['band'] }}</td>
-                            <td>{{ $interface['channel-width'] }}</td>
-                            <td>{{ $interface['frequency'] }}</td>
                             <td>{{ $interface['ssid'] }}</td>
-                            <td>{{ $interface['tx-chains'] }}</td>
-                            <td>{{ $interface['rx-chains'] }}</td>
-                            
+                            <td>
+                                <form method="POST" action="{{ route('wireless.enable', ['id' => $interface['.id']]) }}">
+                                    @csrf
+                                    @method('PUT')
+                                    <button type="submit" class="btn btn-success">Enable</button>
+                                </form>
+                                <form method="POST" action="{{ route('wireless.disable', ['id' => $interface['.id']]) }}">
+                                    @csrf
+                                    @method('PUT')
+                                    <button type="submit" class="btn btn-danger">Disable</button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

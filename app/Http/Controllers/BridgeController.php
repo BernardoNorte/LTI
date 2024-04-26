@@ -109,7 +109,7 @@ class BridgeController extends Controller
 
 
 
-public function edit($id): View
+public function edit($id)
 {
     try {
         $routerIp = Session::get('router_ip');
