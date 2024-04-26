@@ -14,8 +14,6 @@ class InterfacesController extends Controller
     {
         try {
             $routerIp = Session::get('router_ip');
-            $response = Http::withBasicAuth('admin', 'ltipassword')->get('http://' . $routerIp . '/rest/interface');
-            
             $loginName = Session::get('loginName');
             $loginPassword = Session::get('loginPassword');
 

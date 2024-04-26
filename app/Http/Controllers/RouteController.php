@@ -12,9 +12,6 @@ class RouteController extends Controller
     {
         try {
             $routerIp = Session::get('router_ip');
-            
-            $response = Http::withBasicAuth('admin', 'ltipassword')->get('http://' . $routerIp . '/rest/ip/route');
-
             $loginName = Session::get('loginName');
             $loginPassword = Session::get('loginPassword');
 
