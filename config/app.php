@@ -124,5 +124,6 @@ return [
     ],
 
     'router_ip' => env('ROUTER_IP', '192.168.1.143'),
+    
 
 ];

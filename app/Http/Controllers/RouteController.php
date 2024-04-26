@@ -12,9 +12,14 @@ class RouteController extends Controller
     {
         try {
             $routerIp = Session::get('router_ip');
-            ;
+            
             $response = Http::withBasicAuth('admin', 'ltipassword')->get('http://' . $routerIp . '/rest/ip/route');
 
+            $loginName = Session::get('loginName');
+            $loginPassword = Session::get('loginPassword');
+
+            $response = Http::withBasicAuth($loginName, $loginPassword)->get('http://' . $routerIp . '/rest/ip/route');
+            
             if ($response->successful()) {
 
                 $routes = $response->json();
