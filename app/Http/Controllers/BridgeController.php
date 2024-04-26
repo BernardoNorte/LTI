@@ -59,6 +59,8 @@ class BridgeController extends Controller
 {
     try {
         $routerIp = Session::get('router_ip');
+        $loginName = Session::get('loginName');
+        $loginPassword = Session::get('loginPassword');
 
         $validatedData = $request->validate([
             'name' => 'required|string',
@@ -92,7 +94,7 @@ class BridgeController extends Controller
         
         $formData = array_merge($defaultValues, $validatedData);
         
-        $response = Http::withBasicAuth('admin', 'ltipassword')
+        $response = Http::withBasicAuth($loginName, $loginPassword)
             ->post('http://' . $routerIp . '/rest/interface/bridge/add', $formData);
 
         if ($response->successful()) {
@@ -113,8 +115,10 @@ public function edit($id): View
 {
     try {
         $routerIp = Session::get('router_ip');
+        $loginName = Session::get('loginName');
+        $loginPassword = Session::get('loginPassword');
 
-        $response = Http::withBasicAuth('admin', 'ltipassword')->get('http://' . $routerIp . '/rest/interface/bridge/' . $id);
+        $response = Http::withBasicAuth($loginName, $loginPassword)->get('http://' . $routerIp . '/rest/interface/bridge/' . $id);
         
         if ($response->successful()) {
             
@@ -139,6 +143,8 @@ public function updateBridge(Request $request, $id)
 {
     try {
         $routerIp = Session::get('router_ip');
+        $loginName = Session::get('loginName');
+        $loginPassword = Session::get('loginPassword');
 
         $validatedData = $request->validate([
             'name' => 'nullable|string',
@@ -154,7 +160,7 @@ public function updateBridge(Request $request, $id)
         $validatedData['dhcp-snooping'] = isset($validatedData['dhcp-snooping']) ? 'true' : 'false';
         $validatedData['fast-forward'] = isset($validatedData['fast-forward']) ? 'true' : 'false';
        
-        $response = Http::withBasicAuth('admin', 'ltipassword')
+        $response = Http::withBasicAuth($loginName, $loginPassword)
                         ->patch('http://' . $routerIp . '/rest/interface/bridge/' . $id, $validatedData);
         
         if ($response->successful()) {
@@ -172,8 +178,10 @@ public function deleteBridge($id)
 {
     try {
         $routerIp = Session::get('router_ip');
+        $loginName = Session::get('loginName');
+        $loginPassword = Session::get('loginPassword');
             
-        $response = Http::withBasicAuth('admin', 'ltipassword')->delete('http://' . $routerIp . '/rest/interface/bridge/' . $id);
+        $response = Http::withBasicAuth($loginName, $loginPassword)->delete('http://' . $routerIp . '/rest/interface/bridge/' . $id);
             
         if ($response->successful()) {
                 

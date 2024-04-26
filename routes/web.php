@@ -26,4 +26,9 @@ Route::get('interfaces/bridge/{id}', [BridgeController::class, 'edit'])->name('b
 Route::get('interfaces/wireless/security-profiles', [SecurityController::class, 'index'])->name('security.index');
 Route::get('interfaces/wireless/security-profiles/create', [SecurityController::class, 'create'])->name('security.create');
 Route::post('interfaces/wireless/security-profiles/create', [SecurityController::class, 'store'])->name('security.store');
+Route::delete('interfaces/wireless/security-profiles/{id}', [SecurityController::class, 'deleteSecurity'])->name('security.delete');
+Route::patch('interfaces/wireless/security-profiles/{id}', [SecurityController::class,'updateSecurityProfile'])->name('security.update');
+Route::get('interfaces/wireless/security-profiles/{id}', [SecurityController::class, 'edit'])->name('security.edit');
 Route::get('neighbors', [NeighborController::class, 'index'])->name('neighbors');
+Route::post('/update-login-credentials', [Controller::class, 'updateLoginCredentials'])->name('update_login_credentials');
+

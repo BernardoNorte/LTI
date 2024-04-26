@@ -1,11 +1,13 @@
 @extends('layouts.layout')
 
 @section('main')
-    <h2>Dados da Interface</h2>
+    <hr>
+    <hr>
     <hr>
     <div class=" mb-3">
         <a href="{{ route('bridge.create') }}" class="btn btn-primary" >Add</a>
     </div>
+    <h1>Bridge Interfaces</h1>
     <table class="table">
         <thead>
             <tr>

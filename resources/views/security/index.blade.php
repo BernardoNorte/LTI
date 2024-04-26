@@ -36,8 +36,14 @@
                             <td>{{ $profile['group-ciphers'] }}</td>
                             <td class="hidetext">{{ $profile['wpa-pre-shared-key'] }}</td>
                             <td class="hidetext">{{ $profile['wpa2-pre-shared-key'] }}</td>
-                            <td>Edit</td>
-                            <td>Delete</td>
+                            <td><a href="{{ route('security.edit', ['id' => $profile['.id']]) }}" class="btn btn-sm btn-primary">Edit</td>
+                            <td>
+                                <form method="POST" action="{{ route('security.delete', ['id' => $profile['.id']]) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir?')">Delete</button>
+                                </form>
+                            </td>
                             
                         </tr>
                     @endforeach

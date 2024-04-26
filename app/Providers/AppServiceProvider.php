@@ -21,5 +21,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Config::set('custom.router_ip', '192.168.1.143');
+        Config::set('custom.loginName', 'admin');
+        Config::set('custom.loginPassword', 'ltipassword');
     }
 }

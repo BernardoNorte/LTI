@@ -4,6 +4,23 @@
 <hr>
 <hr>
 <hr>
+    <h2>Login Credentials</h2>
+    <form id="form-login" action="{{ route('update_login_credentials', ['loginName' => '', 'loginPassword' => '']) }}" method="POST">
+    @csrf
+    <div class="form-group">
+        <label for="loginName">Username</label>
+        <input type="text" class="form-control" id="loginName" name="loginName" value="{{ $loginName ?? '' }}" onchange="updateAction()">
+    </div>
+    <div class="form-group">
+        <label for="loginPassword">Password</label>
+        <input type="password" class="form-control" id="loginPassword" name="loginPassword" value="{{ $loginPassword ?? '' }}" onchange="updateAction()">
+    </div>
+    <hr>
+    <button form="form-login" type="submit" class="btn btn-primary">Update Credentials</button>
+</form>
+
+
+        <hr>
     <h2>List of Neighbors</h2>
     <hr>
     <div class="row row-cols-1 row-cols-md-2 g-4">
@@ -67,4 +84,12 @@
             </div>
         </div>
     </div>
+    <script>
+    function updateAction() {
+        var loginName = document.getElementById('loginName').value;
+        var loginPassword = document.getElementById('loginPassword').value;
+        var form = document.getElementById('form-login');
+        form.action = "{{ route('update_login_credentials') }}" + '?loginName=' + encodeURIComponent(loginName) + '&loginPassword=' + encodeURIComponent(loginPassword);
+    }
+</script>
 @endsection

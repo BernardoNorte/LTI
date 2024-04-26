@@ -62,7 +62,7 @@
                     </div>
                     <div class="form-group">
                         <input class="form-check-input" type="checkbox" name="fast-forward" id="fastForward" value="true">
-                        <label class="form-check-label" for="fastForward">Fast Forward</label>
+                        <label class="form-check-label" for="fastForward"> Fast Forward</label>
                         
                     </div>
                     
