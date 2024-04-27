@@ -10,12 +10,12 @@
         <thead>
             <tr>
                 <th scope="col">ID</th>
-                <th scope="col">Endereço</th>
-                <th scope="col">Desabilitado</th>
-                <th scope="col">Dinâmico</th>
-                <th scope="col">Nome</th>
+                <th scope="col">Address</th>
+                <th scope="col">Disabled</th>
+                <th scope="col">Dynamic</th>
+                <th scope="col">Name</th>
                 <th scope="col">TTL</th>
-                <th scope="col">Ações</th>
+                <th scope="col">Actions</th>
             </tr>
         </thead>
         <tbody>

@@ -36,8 +36,6 @@ class InterfacesController extends Controller
     public function indexWireless()
     {
         try {
-            $routerIp = $routerIp = Session::get('router_ip');
-            $response = Http::withBasicAuth('admin', 'ltipassword')->get('http://' . $routerIp . '/rest/interface/wireless');
 
             $routerIp = Session::get('router_ip');
             $loginName = Session::get('loginName');

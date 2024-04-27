@@ -25,36 +25,41 @@
     <hr>
     <div class="row row-cols-1 row-cols-md-2 g-4">
         @if(count($neighbors) > 0)
-            @foreach($neighbors as $neighbor)
-                <div class="col">
-                    <div class="card border-primary">
-                        <div class="card-body">
-                            <h5 class="card-title">Neighbor Info</h5>
-                            <p class="card-text">
-                                <strong>MAC:</strong> {{ $neighbor['mac-address'] }}
-                            </p>
-                            <p class="card-text">
-                                <strong>IP Address:</strong> {{ $neighbor['address'] }}
-                            </p>
-                            <p class="card-text">
-                                <strong>Identity:</strong> {{ $neighbor['identity'] }}
-                            </p>
-                            <p class="card-text">
-                                <strong>Version:</strong> {{ $neighbor['version'] }}
-                            </p>
-                            <p class="card-text">
-                                <strong>Platform:</strong> {{ $neighbor['platform'] }}
-                            </p>
-                            <form action="{{ route('update_router_ip', ['newIp' => $neighbor['address']]) }}" method="POST">
-                                @csrf
-                                <button type="submit">Set IP Address</button>
-                            </form>
-
-
-                        </div>
-                    </div>
+        @foreach($neighbors as $neighbor)
+        <div class="col">
+            <div class="card border-primary">
+                <div class="card-body">
+                    <h5 class="card-title">Neighbor Info</h5>
+                    @if(isset($neighbor['address']))
+                        <p class="card-text">
+                            <strong>IP Address:</strong> {{ $neighbor['address'] }}
+                        </p>
+                    @else
+                        <p class="card-text">
+                            <strong>IP Address:</strong> 0.0.0.0
+                        </p>
+                    @endif
+                    <p class="card-text">
+                        <strong>MAC:</strong> {{ $neighbor['mac-address'] }}
+                    </p>
+                    <p class="card-text">
+                        <strong>Identity:</strong> {{ $neighbor['identity'] }}
+                    </p>
+                    <p class="card-text">
+                        <strong>Version:</strong> {{ $neighbor['version'] }}
+                    </p>
+                    <p class="card-text">
+                        <strong>Platform:</strong> {{ $neighbor['platform'] }}
+                    </p>
+                    <form action="{{ route('update_router_ip', ['newIp' => $neighbor['address'] ?? '0.0.0.0']) }}" method="POST">
+                        @csrf
+                        <button type="submit">Set IP Address</button>
+                    </form>
                 </div>
-            @endforeach
+            </div>
+        </div>
+    @endforeach
+    
         @endif
         <div class="col">
             <div class="card border-primary">

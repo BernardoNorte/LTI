@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\DhcpController;
+use App\Http\Controllers\WireguardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InterfacesController;
 use App\Http\Controllers\BridgeController;
@@ -56,4 +57,10 @@ Route::patch('address/{id}', [AddressController::class, 'updateAddress'])->name(
 Route::get('address/{id}', [AddressController::class, 'edit'])->name('address.edit');
 Route::delete('address/{id}', [AddressController::class, 'deleteAddress'])->name('address.delete');
 Route::post('/update-login-credentials', [Controller::class, 'updateLoginCredentials'])->name('update_login_credentials');
+Route::get('wireguard', [WireguardController::class, 'index'])->name('wireguard');
+Route::get('wireguard/create', [WireguardController::class, 'create'])->name('wireguard.create');
+Route::post('wireguard/create', [WireguardController::class, 'store'])->name('wireguard.store');
+Route::patch('wireguard/{id}', [WireguardController::class, 'updateWireguard'])->name('wireguard.update');
+Route::get('wireguard/{id}', [WireguardController::class, 'edit'])->name('wireguard.edit');
+Route::delete('wireguard/{id}', [WireguardController::class, 'deleteWireguard'])->name('wireguard.delete');
 

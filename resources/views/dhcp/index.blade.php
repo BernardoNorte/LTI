@@ -10,15 +10,15 @@
         <thead>
             <tr>
                 <th scope="col">ID</th>
-                <th scope="col">Pool de Endereços</th>
-                <th scope="col">Autoritativo</th>
-                <th scope="col">Desabilitado</th>
-                <th scope="col">Dinâmico</th>
+                <th scope="col">Address Pool</th>
+                <th scope="col">Authoritative</th>
+                <th scope="col">Disabled</th>
+                <th scope="col">Dynamic</th>
                 <th scope="col">Interface</th>
-                <th scope="col">Tempo do Lease</th>
-                <th scope="col">Nome</th>
-                <th scope="col">Usar Radius</th>
-                <th scope="col">Ações</th>
+                <th scope="col">Lease Time</th>
+                <th scope="col">Name</th>
+                <th scope="col">Use Radius</th>
+                <th scope="col">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -33,8 +33,8 @@
                     <td>{{ $server['lease-time'] }}</td>
                     <td>{{ $server['name'] }}</td>
                     <td>{{ $server['use-radius'] }}</td>
-                    <td>
-                        <a href="{{ route('dhcp.edit', ['id' => $server['.id']]) }}" class="btn btn-sm btn-primary">Edit</a>
+                    <td class="d-flex">
+                        <a href="{{ route('dhcp.edit', ['id' => $server['.id']]) }}" class="btn btn-sm btn-primary me-1">Edit</a>
                         <form method="POST" action="{{ route('dhcp.delete', ['id' => $server['.id']]) }}">
                             @csrf
                             @method('DELETE')

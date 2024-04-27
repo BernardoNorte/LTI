@@ -10,16 +10,16 @@
         <thead>
             <tr>
                 <th scope="col">ID</th>
-                <th scope="col">Distância</th>
-                <th scope="col">Endereço Destino</th>
-                <th scope="col">Dinâmica</th>
+                <th scope="col">Distance</th>
+                <th scope="col">Destiny Address</th>
+                <th scope="col">Dynamic</th>
                 <th scope="col">ECMP</th>
                 <th scope="col">Gateway</th>
                 <th scope="col">HW Offloaded</th>
                 <th scope="col">Immediate GW</th>
-                <th scope="col">Inativa</th>
-                <th scope="col">Tabela de Roteamento</th>
-                <th scope="col">Ações</th>
+                <th scope="col">Inactive</th>
+                <th scope="col">Routing Table</th>
+                <th scope="col">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -35,7 +35,7 @@
                     <td>{{ $route['immediate-gw'] }}</td>
                     <td>{{ $route['inactive'] }}</td>
                     <td>{{ $route['routing-table'] }}</td>
-                    <td>
+                    <td class="d-flex">
                         <a href="{{ route('route.edit', ['id' => $route['.id']]) }}" class="btn btn-sm btn-primary">Edit</a>
                         <form method="POST" action="{{ route('route.delete', ['id' => $route['.id']]) }}">
                             @csrf

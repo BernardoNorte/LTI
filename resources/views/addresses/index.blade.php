@@ -10,14 +10,14 @@
         <thead>
             <tr>
                 <th scope="col">ID</th>
-                <th scope="col">Interface Atual</th>
-                <th scope="col">Endereço</th>
-                <th scope="col">Desabilitado</th>
-                <th scope="col">Dinâmico</th>
+                <th scope="col">Actual Interface</th>
+                <th scope="col">Address</th>
+                <th scope="col">Disabled</th>
+                <th scope="col">Dynamic</th>
                 <th scope="col">Interface</th>
-                <th scope="col">Inválido</th>
-                <th scope="col">Rede</th>
-                <th scope="col">Ações</th>
+                <th scope="col">Invalid</th>
+                <th scope="col">Network</th>
+                <th scope="col">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -31,8 +31,8 @@
                     <td>{{ $ip['interface'] }}</td>
                     <td>{{ $ip['invalid'] }}</td>
                     <td>{{ $ip['network'] }}</td>
-                    <td>
-                        <a href="{{ route('address.edit', ['id' => $ip['.id']]) }}" class="btn btn-sm btn-primary">Edit</a>
+                    <td class="d-flex"> 
+                        <a href="{{ route('address.edit', ['id' => $ip['.id']]) }}" class="btn btn-sm btn-primary me-1">Edit</a>
                         <form method="POST" action="{{ route('address.delete', ['id' => $ip['.id']]) }}">
                             @csrf
                             @method('DELETE')

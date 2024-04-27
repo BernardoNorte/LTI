@@ -43,10 +43,6 @@
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-arrows-to-circle"></i></div>
                             Static Routes
                         </a>
-                        <a class="nav-link" href="">
-                            <div class="sb-nav-link-icon"><i class="fa-solid fa-arrows-alt"></i></div>
-                            Dynamic Routes
-                        </a>
                         <div class="sb-sidenav-menu-heading">Wireless Security</div>
                         <a class="nav-link" href="{{ route('security.index') }}">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-shield-halved"></i></div>
@@ -67,9 +63,13 @@
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-cloud"></i></div>
                             Dns Server
                         </a>
+                        <div class="sb-sidenav-menu-heading">VPN</div>
+                        <a class="nav-link" href="{{route('wireguard')}}">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                            WireGuard
+                        </a>
                     </div>
                 </div>
-                <
                 
             </nav>
         </div>

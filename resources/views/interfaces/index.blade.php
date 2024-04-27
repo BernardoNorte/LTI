@@ -27,7 +27,7 @@
                     @foreach($interfaces as $interface)
                         <tr>
                             <td>{{ $interface['name'] }}</td>
-                            <td>{{ $interface['mac-address'] }}</td>
+                            <td>{{ $interface['mac-address'] ?? 'N/A' }}</td>
                             <td>{{ $interface['mtu'] }}</td>
                             <td>{{ $interface['type'] }}</td>
                             <td>{{ $interface['running'] }}</td>

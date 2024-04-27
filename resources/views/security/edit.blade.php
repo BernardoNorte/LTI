@@ -50,17 +50,17 @@
             
             <div class="form-group" id="wpa-pre-shared-key" >
                 <label for="wpa-pre-shared-key">WPA Pre-Shared Key</label>
-                <input type="password" class="form-control" name="wpa-pre-shared-key" id="wpa-pre-shared-key" value="{{ old('wpa-pre-shared-key', $profile['wpa-pre-shared-key']) }}">
+                <input type="password" class="form-control" name="wpa-pre-shared-key" id="wpa-pre-shared-key" value="{{ old('wpa-pre-shared-key', $profile['wpa-pre-shared-key']) }}" disabled>
             </div>
 
             <div class="form-group" id="wpa2-pre-shared-key" >
                 <label for="wpa2-pre-shared-key">WPA2 Pre-Shared key</label>
-                <input type="password" class="form-control" name="wpa2-pre-shared-key" id="wpa2-pre-shared-key" value="{{ old('wpa2-pre-shared-key', $profile['wpa2-pre-shared-key']) }}">
+                <input type="password" class="form-control" name="wpa2-pre-shared-key" id="wpa2-pre-shared-key" value="{{ old('wpa2-pre-shared-key', $profile['wpa2-pre-shared-key']) }}" disabled>
             </div>
 
             <div class="form-group" id="supplicant-identity" >
                 <label for="supplicant-identity">Supplicant Identity</label>
-                <input type="password" class="form-control" name="supplicant-identity" id="supplicant-identity" value="{{ old('supplicant-identity', $profile['supplicant-identity']) }}">
+                <input type="password" class="form-control" name="supplicant-identity" id="supplicant-identity" value="{{ old('supplicant-identity', $profile['supplicant-identity']) }}" disabled>
             </div>
 
             <div id="unicast-ciphers" class="form-group">
@@ -117,6 +117,7 @@
 </div>
 
 <script>
+
     document.getElementById("mode").addEventListener("change", function() {
     var authenticationTypes = document.getElementById("authentication-types");
     var unicastCiphers = document.getElementById("unicast-ciphers");
@@ -211,5 +212,51 @@ document.querySelectorAll('input[type="checkbox"][name="authentication-types[]"]
         }
     });
 });
+
+document.getElementById("management-protection").addEventListener("change", function() {
+        var managementProtectionKeyField = document.getElementById("management-protection-key");
+
+        if (this.value === "disabled") {
+            managementProtectionKeyField.setAttribute("disabled", "disabled");
+        } else {
+            managementProtectionKeyField.removeAttribute("disabled");
+        }
+    });
+
+    document.getElementById("mode").addEventListener("change", function() {
+        var mode = this.value;
+        var disableFields = mode === "none";
+
+        var authenticationTypes = document.getElementById("authentication-types");
+        var unicastCiphers = document.getElementById("unicast-ciphers");
+        var groupCiphers = document.getElementById("group-ciphers");
+        var groupKeyUpdateField = document.getElementById("group-key-update");
+        var managementProtectionKeyField = document.getElementById("management-protection-key");
+        var wpaPreSharedKeyField = document.getElementById("wpa-pre-shared-key");
+        var wpa2PreSharedKeyField = document.getElementById("wpa2-pre-shared-key");
+        var supplicantIdentityField = document.getElementById("supplicant-identity");
+
+        if (disableFields) {
+            authenticationTypes.style.display = "none";
+            unicastCiphers.style.display = "none";
+            groupCiphers.style.display = "none";
+            groupKeyUpdateField.setAttribute("readonly", "readonly");
+            groupKeyUpdateField.value = "00:05:00";
+            managementProtectionKeyField.style.display = "none";
+            managementProtectionKeyField.value = "";
+            wpaPreSharedKeyField.querySelector('input[type="password"]').disabled = true;
+            wpa2PreSharedKeyField.querySelector('input[type="password"]').disabled = true;
+            supplicantIdentityField.querySelector('input[type="password"]').disabled = true;
+        } else {
+            authenticationTypes.style.display = "block";
+            unicastCiphers.style.display = "block";
+            groupCiphers.style.display = "block";
+            groupKeyUpdateField.removeAttribute("readonly");
+            managementProtectionKeyField.style.display = "block";
+            wpaPreSharedKeyField.querySelector('input[type="password"]').disabled = false;
+            wpa2PreSharedKeyField.querySelector('input[type="password"]').disabled = false;
+            supplicantIdentityField.querySelector('input[type="password"]').disabled = false;
+        }
+    });
 </script>
 @endsection
